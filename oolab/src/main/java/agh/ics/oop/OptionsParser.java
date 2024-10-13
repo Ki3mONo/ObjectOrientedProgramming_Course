@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 public class OptionsParser {
     public static MoveDirection[] Parse(String[] args) {
-        /*tutaj można podejściem jak z C ale uznałem że (chyba?) wolno im użyć ArrayListy
+        /*tutaj można podejściem jak z C ale uznałem że (chyba?) wolno im użyć ArrayListy, (wykładowca na 2. wykładzie stwierdził, po pytaniu jednego studentów, że wolno)
         int validCount = 0;
         for (String arg : args) {
             switch (arg) {

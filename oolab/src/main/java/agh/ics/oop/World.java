@@ -14,14 +14,14 @@ public class World {
             }
             System.out.println(args[i]);
          */
-          /*  for (String arg : args){
+          /*wcześniej podpunkt 14:run(String[] args)
+           for (String arg : args){
                 String result = switch (arg) {
                 case "f" -> "Zwierzak idzie do przodu";
                 case "b" -> "Zwierzak idzie do tyłu";
                 case "r" -> "Zwierzak skręca w prawo";
                 case "l" -> "Zwierzak skręca w lewo";
                 default -> null;
-                //ewentualnie: default -> "Ignorowany znak: " + arg; i wtedy bez if'a
             };
                 if (result!=null){
                     System.out.println(result);
@@ -30,8 +30,9 @@ public class World {
            */
         for (MoveDirection move : moves){
             String message = switch(move){
+                //usunięcie polskich znaków, bo przy odpalaniu programu z konsoli powodują problemy "�"
                 case FORWARD -> "Zwierzak idzie do przodu";
-                case BACKWARD -> "Zwierzak idzie do tyłu";
+                case BACKWARD -> "Zwierzak idzie do tylu";
                 case RIGHT -> "Zwierzak idzie w prawo";
                 case LEFT -> "Zwierzak idzie w lewo";
             };
@@ -39,11 +40,11 @@ public class World {
         }
     }
     public static void main(String[] args) {
-        System.out.println("System wystartował");
+        System.out.println("System wystartowal");
         MoveDirection[] moves = OptionsParser.Parse(args);
         //wcześniej podpunkt 8 : run()
-        //wcześniej podpunkt 11 : run(args)
+        //wcześniej podpunkt 11 i 14 : run(args)
         run(moves);
-        System.out.println("System zakończył działanie");
+        System.out.println("System zakonczyl dzialanie");
     }
 }
