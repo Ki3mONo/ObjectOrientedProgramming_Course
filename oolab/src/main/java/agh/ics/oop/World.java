@@ -30,7 +30,7 @@ public class World {
            */
         for (MoveDirection move : moves){
             String message = switch(move){
-                //usunięcie polskich znaków, bo przy odpalaniu programu z konsoli powodują problemy "�"
+                //usunięcie polskich znaków, bo przy odpalaniu programu z konsoli (gradlew.bat) dzieją się problemy "�" z polskimi "Ł" i "Ń", przy odpaleniu w IntelliJ problem nie występuje
                 case FORWARD -> "Zwierzak idzie do przodu";
                 case BACKWARD -> "Zwierzak idzie do tylu";
                 case RIGHT -> "Zwierzak idzie w prawo";
@@ -41,10 +41,11 @@ public class World {
     }
     public static void main(String[] args) {
         System.out.println("System wystartowal");
-        MoveDirection[] moves = OptionsParser.Parse(args);
-        //wcześniej podpunkt 8 : run()
-        //wcześniej podpunkt 11 i 14 : run(args)
-        run(moves);
+        // można osobno wczytać moves albo od razu wywołać run(OptionsParser.Parse(args))
+        //MoveDirection[] moves = OptionsParser.Parse(args);
+        // wcześniej podpunkt 8 : run()
+        // wcześniej podpunkt 11 i 14 : run(args)
+        run(OptionsParser.Parse(args));
         System.out.println("System zakonczyl dzialanie");
     }
 }
