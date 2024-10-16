@@ -15,8 +15,7 @@ public class World {
     }
     public static void main(String[] args) {
         System.out.println("System wystartowal");
-        run(OptionsParser.Parse(args));
-        Vector2d position1 = new Vector2d(1,2);
+        //run(OptionsParser.Parse(args));
         System.out.println("System zakonczyl dzialanie");
     }
 }
