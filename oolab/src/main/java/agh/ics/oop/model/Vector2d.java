@@ -26,7 +26,7 @@ public class Vector2d {
                 ')';
     }
 
-    @Override
+    @Override //Ewentualnie do poprawy TODO
     public boolean equals(Object other) {
         if (this == other)
             return true;
