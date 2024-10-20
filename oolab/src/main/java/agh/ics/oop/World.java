@@ -15,7 +15,7 @@ public class World {
     }
     public static void main(String[] args) {
         System.out.println("System wystartowal");
-        //run(OptionsParser.Parse(args));
+        run(OptionsParser.parse(args));
         System.out.println("System zakonczyl dzialanie");
     }
 }

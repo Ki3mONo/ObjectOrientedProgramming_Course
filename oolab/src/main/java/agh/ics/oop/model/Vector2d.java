@@ -52,7 +52,7 @@ public class Vector2d {
     public Vector2d add(Vector2d other){
         return new Vector2d(x+other.x,y+other.y);
     }
-    public Vector2d substract(Vector2d other){
+    public Vector2d subtract(Vector2d other){
         return new Vector2d(x-other.x,y-other.y);
     }
 

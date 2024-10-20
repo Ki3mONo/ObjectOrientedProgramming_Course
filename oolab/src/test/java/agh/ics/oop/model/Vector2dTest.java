@@ -35,6 +35,7 @@ public class Vector2dTest {
         //then
         assertTrue(v1.precedes(v2));
     }
+    @Test
     public void precedesTrueEqualXTest(){
         //given
         Vector2d v1 = new Vector2d(1,1);
@@ -43,6 +44,7 @@ public class Vector2dTest {
         //then
         assertTrue(v1.precedes(v2));
     }
+    @Test
     public void precedesTrueEqualYTest(){
         //given
         Vector2d v1 = new Vector2d(1,1);
@@ -114,6 +116,7 @@ public class Vector2dTest {
         //then
         assertFalse(v1.follows(v2));
     }
+    @Test
     public void followsFalseEqualXTest(){
         //given
         Vector2d v1 = new Vector2d(2,1);
@@ -122,6 +125,7 @@ public class Vector2dTest {
         //then
         assertFalse(v1.follows(v2));
     }
+    @Test
     public void followsFalseEqualYTest(){
         //given
         Vector2d v1 = new Vector2d(1,2);
@@ -172,7 +176,7 @@ public class Vector2dTest {
         Vector2d v2 = new Vector2d(3,7);
         Vector2d expectedV = new Vector2d(-1,-6);
         //when
-        Vector2d v3 = v1.substract(v2);
+        Vector2d v3 = v1.subtract(v2);
         //then
         assertEquals(expectedV,v3);
     }

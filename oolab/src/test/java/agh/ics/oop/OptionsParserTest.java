@@ -17,7 +17,7 @@ public class OptionsParserTest {
         };
 
         //when
-        MoveDirection[] result = OptionsParser.Parse(input);
+        MoveDirection[] result = OptionsParser.parse(input);
 
         //when
         assertArrayEquals(expectedOutput, result);
@@ -33,7 +33,7 @@ public class OptionsParserTest {
         };
 
         //when
-        MoveDirection[] result = OptionsParser.Parse(input);
+        MoveDirection[] result = OptionsParser.parse(input);
 
         //then
         assertArrayEquals(expectedOutput, result);
@@ -46,7 +46,7 @@ public class OptionsParserTest {
         MoveDirection[] expectedOutput = {};
 
         //when
-        MoveDirection[] result = OptionsParser.Parse(input);
+        MoveDirection[] result = OptionsParser.parse(input);
 
         //then
         assertArrayEquals(expectedOutput, result);
