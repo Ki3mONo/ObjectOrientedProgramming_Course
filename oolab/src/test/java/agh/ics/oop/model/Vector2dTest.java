@@ -17,7 +17,31 @@ public class Vector2dTest {
         // można też tak:
         // assertEquals(v1,v2);
     }
+    @Test
+    public void equalsDifferentTypeTest() {
+        //given
+        Vector2d v1 = new Vector2d(1, 2);
+        String other = "Not a Vector2d";
 
+        //when
+        boolean isEqual = v1.equals(other);
+
+        //then
+        assertFalse(isEqual);
+    }
+    @Test
+    public void hashCodeTest() {
+        //given
+        Vector2d v1 = new Vector2d(1, 2);
+        Vector2d v2 = new Vector2d(1, 2);
+
+        //when
+        int hash1 = v1.hashCode();
+        int hash2 = v2.hashCode();
+
+        //then
+        assertEquals(hash1, hash2);
+    }
     @Test
     public void toStringTest(){
         //given
@@ -170,6 +194,20 @@ public class Vector2dTest {
         assertEquals(expectedV,v3);
     }
     @Test
+    public void addNegativeValuesTest() {
+        //given
+        Vector2d v1 = new Vector2d(-1, -1);
+        Vector2d v2 = new Vector2d(2, 3);
+        Vector2d expected = new Vector2d(1, 2);
+
+        //when
+        Vector2d result = v1.add(v2);
+
+        //then
+        assertEquals(expected, result);
+    }
+
+    @Test
     public void subtractTest() {
         //given
         Vector2d v1 = new Vector2d(2,1);
@@ -181,6 +219,20 @@ public class Vector2dTest {
         assertEquals(expectedV,v3);
     }
     @Test
+    public void subtractNegativeValuesTest() {
+        //given
+        Vector2d v1 = new Vector2d(2, 3);
+        Vector2d v2 = new Vector2d(-1, -1);
+        Vector2d expected = new Vector2d(3, 4);
+
+        //when
+        Vector2d result = v1.subtract(v2);
+
+        //then
+        assertEquals(expected, result);
+    }
+
+    @Test
     public void oppositeTest() {
         //given
         Vector2d v1 = new Vector2d(2,1);
@@ -190,4 +242,17 @@ public class Vector2dTest {
         //then
         assertEquals(expectedV,v2);
     }
+    @Test
+    public void oppositeZeroTest() {
+        //given
+        Vector2d v1 = new Vector2d(0, 0);
+        Vector2d expected = new Vector2d(0, 0);
+
+        //when
+        Vector2d result = v1.opposite();
+
+        //then
+        assertEquals(expected, result);
+    }
+
 }

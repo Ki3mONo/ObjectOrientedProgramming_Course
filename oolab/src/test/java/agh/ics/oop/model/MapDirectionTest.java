@@ -6,6 +6,46 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class MapDirectionTest {
     @Test
+    public void testToStringNorth(){
+        //given
+        MapDirection direction = MapDirection.NORTH;
+        String expectedResult = "Polnoc";
+        //when
+        String result = direction.toString();
+        //then
+        assertEquals(expectedResult, result);
+    }
+    @Test
+    public void testToStringSouth(){
+        //given
+        MapDirection direction = MapDirection.SOUTH;
+        String expectedResult = "Poludnie";
+        //when
+        String result = direction.toString();
+        //then
+        assertEquals(expectedResult, result);
+    }
+    @Test
+    public void testToStringEast(){
+        //given
+        MapDirection direction = MapDirection.EAST;
+        String expectedResult = "Wschod";
+        //when
+        String result = direction.toString();
+        //then
+        assertEquals(expectedResult, result);
+    }
+    @Test
+    public void testToStringWest(){
+        //given
+        MapDirection direction = MapDirection.WEST;
+        String expectedResult = "Zachod";
+        //when
+        String result = direction.toString();
+        //then
+        assertEquals(expectedResult, result);
+    }
+    @Test
     public void testNextSouth(){
         //given
         MapDirection direction = MapDirection.SOUTH;
@@ -85,4 +125,45 @@ public class MapDirectionTest {
         //then
         assertEquals(expectedResult, previousDirection);
     }
+    @Test
+    public void testUnitVectorNorth(){
+        //given
+        MapDirection direction = MapDirection.NORTH;
+        Vector2d expectedResult = new Vector2d(0,1);;
+        //when
+        Vector2d result = direction.toUnitVector();
+        //then
+        assertEquals(expectedResult, result);
+    }
+    @Test
+    public void testUnitVectorSouth(){
+        //given
+        MapDirection direction = MapDirection.SOUTH;
+        Vector2d expectedResult = new Vector2d(0,-1);;
+        //when
+        Vector2d result = direction.toUnitVector();
+        //then
+        assertEquals(expectedResult, result);
+    }
+    @Test
+    public void testUnitVectorEast(){
+        //given
+        MapDirection direction = MapDirection.EAST;
+        Vector2d expectedResult = new Vector2d(1,0);;
+        //when
+        Vector2d result = direction.toUnitVector();
+        //then
+        assertEquals(expectedResult, result);
+    }
+    @Test
+    public void testUnitVectorWest(){
+        //given
+        MapDirection direction = MapDirection.WEST;
+        Vector2d expectedResult = new Vector2d(-1,0);;
+        //when
+        Vector2d result = direction.toUnitVector();
+        //then
+        assertEquals(expectedResult, result);
+    }
+
 }

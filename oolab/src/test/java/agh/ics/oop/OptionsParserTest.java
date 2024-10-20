@@ -24,13 +24,26 @@ public class OptionsParserTest {
     }
 
     @Test
-    public void testParseInvalidInput() {
+    public void testParseMixedInput() {
         //given
         String[] input = {"f", "i", "r", "m", "k"};
         MoveDirection[] expectedOutput = {
                 MoveDirection.FORWARD,
                 MoveDirection.RIGHT
         };
+
+        //when
+        MoveDirection[] result = OptionsParser.parse(input);
+
+        //then
+        assertArrayEquals(expectedOutput, result);
+    }
+
+    @Test
+    public void testParseInvalidInput() {
+        //given
+        String[] input = {"i", "m", "k"};
+        MoveDirection[] expectedOutput = {};
 
         //when
         MoveDirection[] result = OptionsParser.parse(input);
