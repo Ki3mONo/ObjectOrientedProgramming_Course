@@ -26,14 +26,14 @@ public class Vector2d {
                 ')';
     }
 
-    @Override //Ewentualnie do poprawy TODO
+    @Override
     public boolean equals(Object other) {
         if (this == other)
             return true;
         if (!(other instanceof Vector2d))
             return false;
-        Vector2d vector = (Vector2d) other;
-        return x == vector.x && y == vector.y;
+        Vector2d otherVector = (Vector2d) other;
+        return x == otherVector.x && y == otherVector.y;
     }
 
     @Override

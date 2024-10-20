@@ -6,6 +6,28 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class Vector2dTest {
     @Test
+    void getterXTest() {
+        //given
+        Vector2d v = new Vector2d(1,4);
+        int xOfv = 1;
+        //when
+        int result = v.getX();
+        //then
+        assertEquals(xOfv,result);
+    }
+
+    @Test
+    void getterYTest() {
+        //given
+        Vector2d v = new Vector2d(1,4);
+        int xOfv = 4;
+        //when
+        int result = v.getY();
+        //then
+        assertEquals(xOfv,result);
+    }
+
+    @Test
     public void equalsTest(){
         //given
         Vector2d v1 = new Vector2d(1,4);
