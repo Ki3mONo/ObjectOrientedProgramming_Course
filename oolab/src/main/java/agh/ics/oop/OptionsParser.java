@@ -5,35 +5,7 @@ import agh.ics.oop.model.MoveDirection;
 import java.util.ArrayList;
 
 public class OptionsParser {
-    public static MoveDirection[] Parse(String[] args) {
-        /*tutaj można podejściem jak z C ale uznałem że (chyba?) wolno mi użyć ArrayListy, (wykładowca na 2. wykładzie stwierdził, po pytaniu jednego studentów, że można)
-        int validCount = 0;
-        for (String arg : args) {
-            switch (arg) {
-                case "f", "b", "l", "r" -> validCount++;
-                default -> {
-
-                }
-            }
-        }
-        MoveDirection[] moves = new MoveDirection[validCount];
-
-        int index = 0;
-        for (String arg : args) {
-            MoveDirection move = switch (arg) {
-                case "f" -> MoveDirection.FORWARD;
-                case "b" -> MoveDirection.BACKWARD;
-                case "l" -> MoveDirection.LEFT;
-                case "r" -> MoveDirection.RIGHT;
-                default -> null;
-            };
-
-            if (move != null) {
-                moves[index] = move;
-                index++;
-            }
-        }
-         */
+    public static MoveDirection[] parse(String[] args) {
         ArrayList<MoveDirection> moves = new ArrayList<>();
         for (String arg : args) {
             MoveDirection move = switch (arg) {
