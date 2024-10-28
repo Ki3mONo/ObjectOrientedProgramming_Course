@@ -62,6 +62,15 @@ public class Vector2dTest {
         assertFalse(isEqual);
     }
     @Test
+    public void exactlyTheSameEqualsTest(){
+        //given
+        Vector2d v1 = new Vector2d(1, 2);
+        //when
+        boolean isEqual = v1.equals(v1);
+        //then
+        assertTrue(isEqual);
+    }
+    @Test
     public void hashCodeTest() {
         //given
         Vector2d v1 = new Vector2d(1, 2);

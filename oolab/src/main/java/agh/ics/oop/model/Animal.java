@@ -5,6 +5,14 @@ public class Animal {
     private MapDirection orientation=INITIAL_MAP_DIRECTION;
     private Vector2d position;
 
+    //na potrzeby testów integracyjnych
+    public MapDirection getOrientation() {
+        return orientation;
+    }
+    public Vector2d getPosition() {
+        return position;
+    }
+
     public Animal(Vector2d position){
         this.position=position;
     }
@@ -19,10 +27,7 @@ public class Animal {
 
     @Override
     public String toString() {
-        return "Animal={" +
-                "position=" + position +
-                ", orientation=" + orientation +
-                '}';
+        return "{" + position.toString() + ", " + orientation.toString() + "}";
     }
 
     public boolean isAt(Vector2d position){
@@ -30,24 +35,26 @@ public class Animal {
     }
 
     public void move(MoveDirection direction){
-        Vector2d tempPosition = new Vector2d(this.position.getX(),this.position.getY());
-        boolean moved=false;
         switch (direction){
-            case RIGHT -> orientation.next();
-            case LEFT -> orientation.previous();
+            case RIGHT -> this.orientation=this.orientation.next();
+            case LEFT -> this.orientation=this.orientation.previous();
             case FORWARD ->{
-                tempPosition = this.position.add(orientation.toUnitVector());
-                moved = true;
+                Vector2d tempPosition = this.position.add(orientation.toUnitVector());
+                setTempPositionAsCurrent(tempPosition);
             }
             case BACKWARD ->{
-                tempPosition = this.position.add(orientation.toUnitVector().opposite());
-                moved = true;
+                Vector2d tempPosition = this.position.add(orientation.toUnitVector().opposite());
+                setTempPositionAsCurrent(tempPosition);
             }
         }
-        if (moved && checkValidPosition(tempPosition)){
-            this.position=tempPosition;
+    }
+
+    private void setTempPositionAsCurrent(Vector2d tempPosition) {
+        if(checkValidPosition(tempPosition)){
+            this.position = tempPosition;
         }
     }
+
     private boolean checkValidPosition(Vector2d position){
         Vector2d leftBottomCorner = new Vector2d(0,0);
         Vector2d rightUpperCorner = new Vector2d(4,4);
