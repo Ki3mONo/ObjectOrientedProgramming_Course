@@ -27,6 +27,7 @@ public class Animal {
 
     @Override
     public String toString() {
+        //Moim zdaniem pełniejsza informacja niż konspekcie, przydatna do testów
         return "{" + position.toString() + ", " + orientation.toString() + "}";
     }
 
