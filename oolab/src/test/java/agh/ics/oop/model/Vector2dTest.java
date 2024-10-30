@@ -40,6 +40,16 @@ public class Vector2dTest {
         // assertEquals(v1,v2);
     }
     @Test
+    public void equalsFalseTest(){
+        //given
+        Vector2d v1 = new Vector2d(1,4);
+        Vector2d v2 = new Vector2d(1,3);
+        //when
+        boolean isEqual = v1.equals(v2);
+        //then
+        assertFalse(isEqual);
+    }
+    @Test
     public void equalsDifferentTypeTest() {
         //given
         Vector2d v1 = new Vector2d(1, 2);
@@ -50,6 +60,15 @@ public class Vector2dTest {
 
         //then
         assertFalse(isEqual);
+    }
+    @Test
+    public void exactlyTheSameEqualsTest(){
+        //given
+        Vector2d v1 = new Vector2d(1, 2);
+        //when
+        boolean isEqual = v1.equals(v1);
+        //then
+        assertTrue(isEqual);
     }
     @Test
     public void hashCodeTest() {

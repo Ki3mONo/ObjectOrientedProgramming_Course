@@ -3,9 +3,10 @@ package agh.ics.oop;
 import agh.ics.oop.model.MoveDirection;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class OptionsParser {
-    public static MoveDirection[] parse(String[] args) {
+    public static List<MoveDirection> parse(String[] args) {
         ArrayList<MoveDirection> moves = new ArrayList<>();
         for (String arg : args) {
             MoveDirection move = switch (arg) {
@@ -19,6 +20,6 @@ public class OptionsParser {
                 moves.add(move);
             }
         }
-        return moves.toArray(new MoveDirection[0]);
+        return moves;
     }
 }
