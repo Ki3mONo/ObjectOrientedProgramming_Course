@@ -56,24 +56,6 @@ public class SimulationTest {
         assertTrue(animals.get(0).isAt(new Vector2d(0, 3)));
     }
 
-//    @Test
-//    public void shouldNotGoOutOfMapBounds(){
-//        //given
-//        String[] arguments = {"f", "f", "f", "f", "f", "f"};
-//        List<Vector2d> positions = List.of(new Vector2d(0, 0));
-//        List<MoveDirection> directions = OptionsParser.parse(arguments);
-//        Simulation simulation = new Simulation(positions, directions);
-//
-//        //when
-//        simulation.run();
-//        List<Animal> animals = simulation.getAnimals();
-//
-//        //then
-//        assertTrue(animals.get(0).isAt(new Vector2d(0, 4)));
-//    }
-//
-//
-//   rozwinięcie poprzedniego testu poniżej
     @Test
     public void shouldNotGoOutOfMapBoundsInAllDirections() {
         String[] northMoves = {"f", "f", "f", "f", "f"};
