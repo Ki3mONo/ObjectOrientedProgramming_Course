@@ -25,7 +25,7 @@ public class SimulationTest {
     }
 
     @Test
-    public void animalCorrectOrientationAfterSimulation(){
+    public void animalCorrectOrientationAfterSimulationWithParser(){
         //given
         RectangularMap map = new RectangularMap(5,5);
         String[] arguments = {"f", "r","u","f","asd", "l", "m", "f"};
@@ -43,7 +43,7 @@ public class SimulationTest {
     }
 
     @Test
-    public void shouldMoveToCorrectPositionAfterSimulation(){
+    public void shouldMoveToCorrectPositionAfterSimulationWithParser(){
         //given
         RectangularMap map = new RectangularMap(5,5);
         String[] arguments = {"f", "f", "l", "f"};
@@ -60,7 +60,7 @@ public class SimulationTest {
     }
 
     @Test
-    public void shouldNotGoOutOfMapBoundsInAllDirections() {
+    public void shouldNotGoOutOfMapBoundsInAllDirectionsWithParser() {
         RectangularMap map = new RectangularMap(5,5);
 
         String[] northMoves = {"f", "f", "f", "f", "f"};
@@ -98,7 +98,7 @@ public class SimulationTest {
 
 
     @Test
-    public void fullSimulationIntegrationTest(){
+    public void fullSimulationWithParserIntegrationTest(){
         //parserTest
         //given
         String[] arguments = {"b", "f", "r", "t", "b", "r", "f", "m","f", "b", "l", "b", "l", "b","l"};

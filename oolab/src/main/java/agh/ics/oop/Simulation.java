@@ -11,10 +11,9 @@ import java.util.List;
 public class Simulation {
     private List<Animal> animals = new ArrayList<>();
     private List<MoveDirection> directions;
-
     private WorldMap map;
 
-    public Simulation(List<Vector2d> positions,List<MoveDirection> directions,WorldMap map){
+    public Simulation(List<Vector2d> positions,List<MoveDirection> directions, WorldMap map){
         this.directions=directions;
         this.map = map;
         for (int i = 0; i<positions.size(); i++){

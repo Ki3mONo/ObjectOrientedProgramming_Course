@@ -7,14 +7,25 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class RectangularMapTest {
     @Test
-    public void testAnimalPlacement() {
+    public void testAnimalPlacementOutOfBounds() {
+        RectangularMap map = new RectangularMap(5, 5);
+        Animal animal1 = new Animal(new Vector2d(5, 5));
+
+        assertFalse(map.place(animal1));
+
+        assertFalse(map.isOccupied(new Vector2d(5,5)));
+
+    }
+    @Test
+    public void testAnimalPlacementAtOccupiedPosition() {
         RectangularMap map = new RectangularMap(5, 5);
         Animal animal1 = new Animal(new Vector2d(2, 2));
-        Animal animal2 = new Animal(new Vector2d(2, 2)); // Próba umieszczenia w tym samym miejscu
+        Animal animal2 = new Animal(new Vector2d(2, 2));
 
-        assertTrue(map.place(animal1)); // Pierwsze zwierzę powinno być umieszczone
+        assertTrue(map.place(animal1));
+
         assertTrue(map.isOccupied(new Vector2d(2,2)));
-        assertFalse(map.place(animal2)); // Drugie zwierzę nie powinno być umieszczone na tej samej pozycji
+        assertFalse(map.place(animal2));
     }
 
     @Test
@@ -24,15 +35,17 @@ public class RectangularMapTest {
         map.place(animal);
 
         // Ruchy w obrębie granic
-        map.move(animal, MoveDirection.FORWARD); // W kierunku północnym
+        map.move(animal, MoveDirection.FORWARD);
         assertEquals(new Vector2d(2, 3), animal.getPosition());
+        assertTrue(animal.isAt(new Vector2d(2,3)));
+        assertTrue(map.isOccupied(new Vector2d(2,3)));
 
-        map.move(animal, MoveDirection.RIGHT); // Obrót na wschód
-        map.move(animal, MoveDirection.FORWARD); // Ruch na wschód
+
+        map.move(animal, MoveDirection.RIGHT);
+        map.move(animal, MoveDirection.FORWARD);
         assertTrue(animal.isAt(new Vector2d(3,3)));
-
-        // Sprawdzenie, czy zwierzę jest na poprawnej pozycji na mapie
-        assertTrue(map.isOccupied(new Vector2d(3, 3)));
+        assertTrue(map.isOccupied(new Vector2d(3,3)));
+        assertFalse(map.isOccupied(new Vector2d(2,3)));
     }
     @Test
     public void testAnimalMovementOutOfBounds() {
@@ -40,14 +53,14 @@ public class RectangularMapTest {
         Animal animal = new Animal(new Vector2d(0, 0));
         map.place(animal);
 
-        map.move(animal, MoveDirection.BACKWARD); // Próba ruchu na południe poza granice mapy
-        assertTrue(animal.isAt(new Vector2d(0,0))); // Pozycja nie powinna się zmienić
+        map.move(animal, MoveDirection.BACKWARD);
+        assertTrue(animal.isAt(new Vector2d(0,0)));
         assertTrue(map.isOccupied(new Vector2d(0, 0)));
 
 
-        map.move(animal, MoveDirection.LEFT); // Obrót na zachód
-        map.move(animal, MoveDirection.FORWARD); // Próba ruchu na zachód poza granice mapy
-        assertTrue(animal.isAt(new Vector2d(0,0))); // Pozycja nie powinna się zmienić
+        map.move(animal, MoveDirection.LEFT);
+        map.move(animal, MoveDirection.FORWARD);
+        assertTrue(animal.isAt(new Vector2d(0,0)));
         assertTrue(map.isOccupied(new Vector2d(0, 0)));
     }
 
