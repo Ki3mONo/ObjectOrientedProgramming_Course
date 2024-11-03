@@ -9,7 +9,7 @@ public class MapDirectionTest {
     public void testToStringNorth(){
         //given
         MapDirection direction = MapDirection.NORTH;
-        String expectedResult = "Polnoc";
+        String expectedResult = "N";
         //when
         String result = direction.toString();
         //then
@@ -19,7 +19,7 @@ public class MapDirectionTest {
     public void testToStringSouth(){
         //given
         MapDirection direction = MapDirection.SOUTH;
-        String expectedResult = "Poludnie";
+        String expectedResult = "S";
         //when
         String result = direction.toString();
         //then
@@ -29,7 +29,7 @@ public class MapDirectionTest {
     public void testToStringEast(){
         //given
         MapDirection direction = MapDirection.EAST;
-        String expectedResult = "Wschod";
+        String expectedResult = "E";
         //when
         String result = direction.toString();
         //then
@@ -39,7 +39,7 @@ public class MapDirectionTest {
     public void testToStringWest(){
         //given
         MapDirection direction = MapDirection.WEST;
-        String expectedResult = "Zachod";
+        String expectedResult = "W";
         //when
         String result = direction.toString();
         //then
