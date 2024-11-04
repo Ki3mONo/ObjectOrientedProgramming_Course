@@ -8,25 +8,27 @@ import agh.ics.oop.model.WorldMap;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Simulation {
-    private List<Animal> animals = new ArrayList<>();
-    private List<MoveDirection> directions;
-    private WorldMap map;
+public class Simulation<T, P> {
+    private final List<T> objects = new ArrayList<>();
+    private final List<MoveDirection> directions;
+    private final WorldMap<T, P> map;
 
-    public Simulation(List<Vector2d> positions,List<MoveDirection> directions, WorldMap map){
-        this.directions=directions;
+    // Konstruktor przyjmuje listę obiektów, kierunki ruchu i dowolną mapę WorldMap
+    public Simulation(List<T> entities, List<MoveDirection> directions, WorldMap<T, P> map) {
+        this.directions = directions;
         this.map = map;
-        for (int i = 0; i<positions.size(); i++){
-            Animal animal = new Animal(positions.get(i));
-            if (map.place(animal)){
-                animals.add(animal);
+
+        // Umieszczamy obiekty na mapie
+        for (T entity : entities) {
+            if (map.place(entity)) {
+                this.objects.add(entity);
             }
         }
     }
     public void run(){
         for (int i = 0; i<directions.size(); i++){
-            int animalIndex = i%animals.size();
-            Animal animal = animals.get(animalIndex);
+            int objectIndex = i%objects.size();
+            T object = objects.get(animalIndex);
             map.move(animal,directions.get(i));
             //nie jestem pewny czy ten pierwszy sout jest potrzebny, ale zostawię go bo nigdzie nie kazali go usuwać
             System.out.println("Zwierzak " + animalIndex + " : " + animal.getPosition() + ", " + animal);
