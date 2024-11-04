@@ -28,7 +28,9 @@ public class Simulation {
             int animalIndex = i%animals.size();
             Animal animal = animals.get(animalIndex);
             map.move(animal,directions.get(i));
+            //nie jestem pewny czy ten pierwszy sout jest potrzebny, ale zostawię go bo nigdzie nie kazali go usuwać
             System.out.println("Zwierzak " + animalIndex + " : " + animal.getPosition() + ", " + animal);
+            //tutaj wypisanie stanu mapy z zadania 6.
             System.out.println(map);
         }
     }
