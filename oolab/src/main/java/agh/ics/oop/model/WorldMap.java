@@ -7,7 +7,7 @@ import agh.ics.oop.model.MoveDirection;
  * The interface responsible for interacting with the map of the world.
  * Assumes that MoveDirection classes are defined.
  *
- * @author apohllo, idzik, ki3mon
+ * @author apohllo, idzik, ki3mon(hyhy)
  */
 public interface WorldMap<T, P> extends MoveValidator<P> {
 
