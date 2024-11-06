@@ -4,14 +4,14 @@ import agh.ics.oop.model.util.MapVisualizer;
 
 import java.util.*;
 
-public class RectangularMap implements WorldMap {
+public class RectangularMap extends AbstractWorldMap implements WorldMap {
     private int width;
     private int height;
+
 
     //przydane w implementacji
     private Vector2d leftBottomCorner=new Vector2d(0,0);
     private Vector2d rightUpperCorner;
-    private Map<Vector2d, Animal> animals = new HashMap<>();
 
     public RectangularMap(int width, int height) {
         if (width>=0 && height>=0){
@@ -63,7 +63,6 @@ public class RectangularMap implements WorldMap {
     public Animal objectAt(Vector2d position) {
         return animals.get(position);
     }
-
 
 
     @Override
