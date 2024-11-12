@@ -27,39 +27,43 @@ public class Animal {
 
     @Override
     public String toString() {
-        //Moim zdaniem pełniejsza informacja niż konspekcie, przydatna do testów
-        return "{" + position.toString() + ", " + orientation.toString() + "}";
+        //uwaga do lab3: Moim zdaniem pełniejsza informacja niż konspekcie, przydatna do testów
+        //return "{" + position.toString() + ", " + orientation.toString() + "}";
+        //dla lab4 lepiej:
+        return orientation.toString();
     }
 
     public boolean isAt(Vector2d position){
         return this.position.equals(position);
     }
 
-    public void move(MoveDirection direction){
+    public void move(MoveValidator validator, MoveDirection direction){
+        Vector2d tempPosition = this.position;
         switch (direction){
             case RIGHT -> this.orientation=this.orientation.next();
             case LEFT -> this.orientation=this.orientation.previous();
             case FORWARD ->{
-                Vector2d tempPosition = this.position.add(orientation.toUnitVector());
-                setTempPositionAsCurrent(tempPosition);
+                tempPosition = this.position.add(orientation.toUnitVector());
             }
             case BACKWARD ->{
-                Vector2d tempPosition = this.position.add(orientation.toUnitVector().opposite());
-                setTempPositionAsCurrent(tempPosition);
+                tempPosition = this.position.add(orientation.toUnitVector().opposite());
             }
         }
-    }
-
-    private void setTempPositionAsCurrent(Vector2d tempPosition) {
-        if(checkValidPosition(tempPosition)){
+        if (validator.canMoveTo(tempPosition)){
             this.position = tempPosition;
         }
     }
 
-    private boolean checkValidPosition(Vector2d position){
-        Vector2d leftBottomCorner = new Vector2d(0,0);
-        Vector2d rightUpperCorner = new Vector2d(4,4);
+//    private void setTempPositionAsCurrent(Vector2d tempPosition) {
+//        if(checkValidPosition(tempPosition)){
+//            this.position = tempPosition;
+//        }
+//    }
 
-        return leftBottomCorner.precedes(position) && rightUpperCorner.follows(position);
-    }
+//    private boolean checkValidPosition(Vector2d position){
+//        Vector2d leftBottomCorner = new Vector2d(0,0);
+//        Vector2d rightUpperCorner = new Vector2d(4,4);
+//
+//        return leftBottomCorner.precedes(position) && rightUpperCorner.follows(position);
+//    }
 }
