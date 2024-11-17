@@ -59,14 +59,14 @@ public class GrassFieldTest {
     @Test
     public void testAnimalMovementWithGrass() {
         GrassField grassField = new GrassField(4,new Random(123));
-        Animal animal = new Animal(new Vector2d(2, 1));
+        Animal animal = new Animal(new Vector2d(3, 2));
         assertTrue(grassField.place(animal));
-        assertInstanceOf(Grass.class , grassField.objectAt(new Vector2d(3,1)));
-        assertEquals(animal,grassField.objectAt(new Vector2d(2, 1)));
+        assertInstanceOf(Grass.class , grassField.objectAt(new Vector2d(4,2)));
+        assertEquals(animal,grassField.objectAt(new Vector2d(3, 2)));
         grassField.move(animal, MoveDirection.RIGHT);
         grassField.move(animal, MoveDirection.FORWARD);
-        assertTrue(animal.isAt(new Vector2d(3, 1)));
-        assertInstanceOf(Grass.class , grassField.objectAt(new Vector2d(2,1)));
+        assertTrue(animal.isAt(new Vector2d(4,2)));
+        assertInstanceOf(Grass.class , grassField.objectAt(new Vector2d(3, 2)));
     }
 
     @Test
@@ -85,11 +85,10 @@ public class GrassFieldTest {
         assertTrue(elements.contains(animal2));
         assertTrue(elements.size() == 12);
     }
-
     @Test
     public void testObjectAt() {
         GrassField grassField = new GrassField(10,new Random(123));
-        Vector2d position = new Vector2d(0, 10);
+        Vector2d position = new Vector2d(0, 2);
         System.out.println(grassField);
 
         WorldElement element = grassField.objectAt(position);
@@ -121,22 +120,18 @@ public class GrassFieldTest {
         grassField.move(animal1, MoveDirection.FORWARD);
 
 
-        String expectedString =
-                        " y\\x  0 1 2 3 4 5 6 7 8\r\n" +
-                        " 11: -------------------\r\n" +
-                        " 10: | | | | | |*| |*| |\r\n" +
-                        "  9: | | | | | | | | | |\r\n" +
-                        "  8: | | | | | | |N| | |\r\n" +
-                        "  7: | | | | | | | | |*|\r\n" +
-                        "  6: | | | | | | | | | |\r\n" +
-                        "  5: | | | | | | |*| | |\r\n" +
-                        "  4: |*| | | | | |*| | |\r\n" +
-                        "  3: | | | | | | | | | |\r\n" +
-                        "  2: | | |N| | | |*| | |\r\n" +
-                        "  1: | |N|*| | | | | | |\r\n" +
-                        "  0: | | | |*| | |*| | |\r\n" +
-                        " -1: -------------------\r\n";
-
+        String expectedString =" y\\x  0 1 2 3 4 5 6 7 8 9\r\n" +
+                "  9: ---------------------\r\n" +
+                "  8: | | |*| | | |N| | | |\r\n" +
+                "  7: | | |*| | | | | | | |\r\n" +
+                "  6: | | | | | | | | | | |\r\n" +
+                "  5: | | | | | | | | | | |\r\n" +
+                "  4: | | | | | | | | | | |\r\n" +
+                "  3: | |*|*|*| | | | | |*|\r\n" +
+                "  2: | | |N| | | | | | | |\r\n" +
+                "  1: |*|N| |*| | | | | | |\r\n" +
+                "  0: | | | | |*| | | |*| |\r\n" +
+                " -1: ---------------------\r\n";
 
         assertEquals(expectedString, grassField.toString());
     }
