@@ -58,12 +58,15 @@ public class GrassFieldTest {
 
     @Test
     public void testAnimalMovementWithGrass() {
-        GrassField grassField = new GrassField(10);
-        Animal animal = new Animal(new Vector2d(2, 2));
+        GrassField grassField = new GrassField(4,new Random(123));
+        Animal animal = new Animal(new Vector2d(2, 1));
         assertTrue(grassField.place(animal));
-        assertEquals(animal,grassField.objectAt(new Vector2d(2, 2)));
+        assertInstanceOf(Grass.class , grassField.objectAt(new Vector2d(3,1)));
+        assertEquals(animal,grassField.objectAt(new Vector2d(2, 1)));
+        grassField.move(animal, MoveDirection.RIGHT);
         grassField.move(animal, MoveDirection.FORWARD);
-        assertTrue(animal.isAt(new Vector2d(2, 3)));
+        assertTrue(animal.isAt(new Vector2d(3, 1)));
+        assertInstanceOf(Grass.class , grassField.objectAt(new Vector2d(2,1)));
     }
 
     @Test

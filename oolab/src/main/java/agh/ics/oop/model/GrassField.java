@@ -7,7 +7,10 @@ import java.util.*;
 public class GrassField extends AbstractWorldMap{
 
     private Map<Vector2d,Grass> grassMap = new HashMap<>();
-
+    @Override
+    public boolean canMoveTo(Vector2d position) {
+        return inBounds(position) && !super.isOccupied(position);
+    }
     @Override
     public boolean isOccupied(Vector2d position) {
         return isOccupiedByGrass(position) || super.isOccupied(position); //możnaby było uzyc elements
