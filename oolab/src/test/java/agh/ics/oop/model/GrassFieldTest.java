@@ -71,12 +71,28 @@ public class GrassFieldTest {
         GrassField grassField = new GrassField(10);
         Animal animal1 = new Animal(new Vector2d(0, 0));
         Animal animal2 = new Animal(new Vector2d(1, 1));
-        grassField.place(animal1);
-        grassField.place(animal2);
+        assertTrue(grassField.place(animal1));
+        assertTrue(grassField.place(animal2));
         Collection<WorldElement> elements = grassField.getElements();
+        Map<Vector2d, Animal> animals = grassField.getAnimals();
+        assertTrue(animals.containsValue(animal1));
+        assertTrue(animals.containsValue(animal2));
+        assertEquals(2,animals.keySet().size());
         assertTrue(elements.contains(animal1));
         assertTrue(elements.contains(animal2));
         assertTrue(elements.size() == 12);
+    }
+
+    @Test
+    public void testObjectAt() {
+        GrassField grassField = new GrassField(10,new Random(123));
+        Vector2d position = new Vector2d(0, 10);
+        System.out.println(grassField);
+
+        WorldElement element = grassField.objectAt(position);
+
+        assertNotNull(element);
+        assertInstanceOf(Grass.class, element);
     }
 
     @Test

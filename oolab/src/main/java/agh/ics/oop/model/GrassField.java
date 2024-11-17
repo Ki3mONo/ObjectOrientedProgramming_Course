@@ -10,7 +10,10 @@ public class GrassField extends AbstractWorldMap{
 
     @Override
     public boolean isOccupied(Vector2d position) {
-        return animals.containsKey(position) || grassMap.containsKey(position); //możnaby było uzyc elements
+        return isOccupiedByGrass(position) || super.isOccupied(position); //możnaby było uzyc elements
+    }
+    private boolean isOccupiedByGrass(Vector2d position){
+        return grassMap.containsKey(position);
     }
 
     public GrassField(int grassCount){
@@ -37,7 +40,7 @@ public class GrassField extends AbstractWorldMap{
     @Override
     public Collection<WorldElement> getElements(){
         Collection<WorldElement> elements = super.getElements();
-        elements.addAll(grassMap.values());
+        elements.addAll(this.getGrassMap().values());
         return elements;
     }
 
