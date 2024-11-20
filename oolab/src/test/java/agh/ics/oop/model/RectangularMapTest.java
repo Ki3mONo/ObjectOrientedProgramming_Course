@@ -3,6 +3,8 @@ package agh.ics.oop.model;
 import org.junit.jupiter.api.Test;
 import agh.ics.oop.model.util.*;
 
+import java.util.Map;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class RectangularMapTest {
@@ -15,6 +17,17 @@ public class RectangularMapTest {
         assertTrue(map.place(animal1));
         assertEquals(animal1,map.objectAt(new Vector2d(3,2)));
         assertTrue(map.isOccupied(new Vector2d(3,2)));
+
+    }
+    @Test
+    public void testGetAnimals() {
+        RectangularMap map = new RectangularMap(5, 5);
+        Animal animal1 = new Animal(new Vector2d(3, 2));
+
+        map.place(animal1);
+        Map<Vector2d, Animal> animalsMap=map.getAnimals();
+
+        assertTrue(animalsMap.containsValue(animal1));
 
     }
     @Test
@@ -57,6 +70,7 @@ public class RectangularMapTest {
         assertTrue(map.isOccupied(new Vector2d(3,3)));
         assertFalse(map.isOccupied(new Vector2d(2,3)));
     }
+
     @Test
     public void testAnimalMovementOutOfBounds() {
         RectangularMap map = new RectangularMap(5, 5);
@@ -88,4 +102,27 @@ public class RectangularMapTest {
         assertTrue(map.isOccupied(new Vector2d(2, 1)));
         assertFalse(animal2.isAt(new Vector2d(2,2)));
     }
+
+    @Test
+    public void testToString(){
+        RectangularMap map = new RectangularMap(5, 5);
+        Animal animal = new Animal(new Vector2d(0, 0));
+        map.place(animal);
+
+        map.move(animal, MoveDirection.BACKWARD);
+        assertTrue(animal.isAt(new Vector2d(0,0)));
+        assertTrue(map.isOccupied(new Vector2d(0, 0)));
+
+
+        map.move(animal, MoveDirection.LEFT);
+        map.move(animal, MoveDirection.FORWARD);
+        assertTrue(animal.isAt(new Vector2d(0,0)));
+        assertTrue(map.isOccupied(new Vector2d(0, 0)));
+
+        String toStringExpected=
+                " y\\x  0 1 2 3 4\r\n  5: -----------\r\n  4: | | | | | |\r\n  3: | | | | | |\r\n  2: | | | | | |\r\n  1: | | | | | |\r\n  0: |W| | | | |\r\n -1: -----------\r\n";
+
+        assertEquals(toStringExpected,map.toString());
+    }
+
 }

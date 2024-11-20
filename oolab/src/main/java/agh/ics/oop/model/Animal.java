@@ -1,6 +1,6 @@
 package agh.ics.oop.model;
 
-public class Animal {
+public class Animal implements WorldElement{
     public static final MapDirection INITIAL_MAP_DIRECTION = MapDirection.NORTH;
     private MapDirection orientation=INITIAL_MAP_DIRECTION;
     private Vector2d position;
@@ -27,9 +27,6 @@ public class Animal {
 
     @Override
     public String toString() {
-        //uwaga do lab3: Moim zdaniem pełniejsza informacja niż konspekcie, przydatna do testów
-        //return "{" + position.toString() + ", " + orientation.toString() + "}";
-        //dla lab4 lepiej:
         return orientation.toString();
     }
 
