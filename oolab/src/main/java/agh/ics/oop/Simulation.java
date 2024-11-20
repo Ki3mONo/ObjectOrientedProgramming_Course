@@ -8,33 +8,41 @@ import agh.ics.oop.model.WorldMap;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Simulation {
-    private List<Animal> animals = new ArrayList<>();
+public class Simulation <T,P>{
+    private List<T> elements = new ArrayList<>();
     private List<MoveDirection> directions;
-    private WorldMap map;
+    private WorldMap<T, P> map;
 
-    public Simulation(List<Vector2d> positions,List<MoveDirection> directions, WorldMap map){
+    public Simulation(List<P> initialList,List<MoveDirection> directions, WorldMap <T, P> map){
         this.directions=directions;
         this.map = map;
-        for (int i = 0; i<positions.size(); i++){
-            Animal animal = new Animal(positions.get(i));
-            if (map.place(animal)){
-                animals.add(animal);
+        for (P position : initialList) {
+            T element = createElement(position);
+            if (element != null && map.place(element)) {
+                elements.add(element);
             }
         }
     }
+
+    private T createElement(P position) {
+        if (map != null && position instanceof Vector2d) {
+            return (T) new Animal((Vector2d) position);
+        } else if (map != null && position instanceof String) {
+            return (T) position;
+        }
+        //element niezgodny z żadną dotychczasową implementacją
+        return null;
+    }
+
     public void run(){
         for (int i = 0; i<directions.size(); i++){
-            int animalIndex = i%animals.size();
-            Animal animal = animals.get(animalIndex);
-            map.move(animal,directions.get(i));
-            //nie jestem pewny czy ten pierwszy sout jest potrzebny, ale zostawię go bo nigdzie nie kazali go usuwać
-            System.out.println("Zwierzak " + animalIndex + " : " + animal.getPosition() + ", " + animal);
-            //tutaj wypisanie stanu mapy z zadania 6.
+            int elementIndex = i%elements.size();
+            T element = elements.get(elementIndex);
+            map.move((T) element,directions.get(i));
             System.out.println(map);
         }
     }
-    public List<Animal> getAnimals(){
-        return this.animals;
+    public List<T> getElements(){
+        return this.elements;
     }
 }

@@ -4,10 +4,9 @@ import agh.ics.oop.model.util.MapVisualizer;
 
 import java.util.*;
 
-public class RectangularMap implements WorldMap {
+public class RectangularMap implements WorldMap<Animal, Vector2d> {
     private int width;
     private int height;
-
     //przydane w implementacji
     private Vector2d leftBottomCorner=new Vector2d(0,0);
     private Vector2d rightUpperCorner;
