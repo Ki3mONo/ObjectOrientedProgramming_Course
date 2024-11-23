@@ -3,7 +3,9 @@ package agh.ics.oop;
 import agh.ics.oop.model.*;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicReference;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -11,13 +13,18 @@ public class SimulationTest {
     @Test
     public void animalCorrectParserSimulation(){
         //given
-        String[] arguments = {"f", "r","u","f","asd", "l", "m", "f"};
+        String[] arguments = {"f", "r","f", "l", "f"};
         RectangularMap map = new RectangularMap(5,5);
         List<Vector2d> positions = List.of(new Vector2d(2, 2));
         List<MoveDirection> expectedOutput = List.of(MoveDirection.FORWARD, MoveDirection.RIGHT,
                 MoveDirection.FORWARD, MoveDirection.LEFT, MoveDirection.FORWARD);
         //when
-        List<MoveDirection> directions = OptionsParser.parse(arguments);
+        List<MoveDirection> directions = new ArrayList<>();
+        try{
+            directions = OptionsParser.parse(arguments);
+        }catch (IllegalArgumentException e){
+            System.err.println(e.getMessage());
+        }
         Simulation simulation = new Simulation(positions, directions,map);
         simulation.run();
         //then
@@ -28,7 +35,7 @@ public class SimulationTest {
     public void animalCorrectOrientationAfterSimulationWithParser(){
         //given
         RectangularMap map = new RectangularMap(5,5);
-        String[] arguments = {"f", "r","u","f","asd", "l", "m", "f"};
+        String[] arguments = {"f", "r","f", "l", "f"};
         List<Vector2d> positions = List.of(new Vector2d(2, 2));
         List<MoveDirection> expectedOutput = List.of(MoveDirection.FORWARD, MoveDirection.RIGHT,
                 MoveDirection.FORWARD, MoveDirection.LEFT, MoveDirection.FORWARD);
@@ -40,6 +47,22 @@ public class SimulationTest {
 
         //then
         assertEquals(MapDirection.NORTH, animals.get(0).getOrientation());
+    }
+    @Test
+    public void SimulationParserInvalidArguments(){
+        //given
+        RectangularMap map = new RectangularMap(5,5);
+        String[] arguments = {"m", "f", "l", "f"};
+        List<Vector2d> positions = List.of(new Vector2d(1, 1));
+        AtomicReference<List<MoveDirection>> directions = new AtomicReference<>(new ArrayList<>());
+        Exception exception = assertThrows(IllegalArgumentException.class, ()->{
+            directions.set(OptionsParser.parse(arguments));
+        });
+        Simulation simulation = new Simulation(positions, directions.get(),map);
+        String expectedMessage = "m is not legal move specification";
+        String actualMessage = exception.getMessage();
+
+        assertEquals(expectedMessage,actualMessage);
     }
 
     @Test
@@ -101,7 +124,7 @@ public class SimulationTest {
     public void fullSimulationWithParserIntegrationTest(){
         //parserTest
         //given
-        String[] arguments = {"b", "f", "r", "t", "b", "r", "f", "m","f", "b", "l", "b", "l", "b","l"};
+        String[] arguments = {"b", "f", "r", "b", "r", "f", "f", "b", "l", "b", "l", "b","l"};
         List<MoveDirection> expectedOutput = List.of(MoveDirection.BACKWARD, MoveDirection.FORWARD, MoveDirection.RIGHT,
                 MoveDirection.BACKWARD,MoveDirection.RIGHT,MoveDirection.FORWARD,MoveDirection.FORWARD,MoveDirection.BACKWARD,
                 MoveDirection.LEFT,MoveDirection.BACKWARD,MoveDirection.LEFT,MoveDirection.BACKWARD, MoveDirection.LEFT);

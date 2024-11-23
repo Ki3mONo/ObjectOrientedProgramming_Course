@@ -17,9 +17,9 @@ public class RectangularMap extends AbstractWorldMap {
             this.rightUpperCorner = new Vector2d(width-1,height-1);
         }
     }
+
     @Override
-    public String toString(){
-        MapVisualizer visualizer = new MapVisualizer(this);
-        return visualizer.draw(this.leftBottomCorner,this.rightUpperCorner);
+    public Boundary getCurrentBounds(){
+        return new Boundary(leftBottomCorner,rightUpperCorner);
     }
 }

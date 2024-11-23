@@ -59,13 +59,8 @@ public class GrassField extends AbstractWorldMap{
     }
 
     @Override
-    public String toString() {
-        MapVisualizer visualizer = new MapVisualizer(this);
-
-        Vector2d dynamicLeftBottomCorner = findLeftBottom();
-        Vector2d dynamicRightUpperCorner = findRightUpper();
-
-        return visualizer.draw(dynamicLeftBottomCorner,dynamicRightUpperCorner);
+    public Boundary getCurrentBounds(){
+        return new Boundary(findLeftBottom(),findRightUpper());
     }
 
     Vector2d findLeftBottom(){
