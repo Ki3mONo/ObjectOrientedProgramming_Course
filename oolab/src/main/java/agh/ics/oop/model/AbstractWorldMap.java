@@ -10,6 +10,12 @@ public abstract class AbstractWorldMap implements WorldMap{
     protected Vector2d rightUpperCorner=new Vector2d(Integer.MAX_VALUE,Integer.MAX_VALUE);
     protected Map<Vector2d, Animal> animals = new HashMap<>();
     private Map<Animal, Integer> animalIndices = new HashMap<>();
+
+    //do testów
+    public List<MapChangeListener> getObserving() {
+        return observing;
+    }
+
     private List<MapChangeListener> observing = new ArrayList<>();
 
     public void addObserver(MapChangeListener mapChangeListener) {
@@ -57,7 +63,9 @@ public abstract class AbstractWorldMap implements WorldMap{
             if (!oldPosition.equals(newPosition)) {
                 animals.remove(oldPosition);
                 place(animal);
-
+                //moim zdaniem tutaj lepiej jest to wstawić niż w simulation, ponieważ zgodnie z poleceniem mamy pokazywać zmiany
+                //mapy tylko, gdy "Umieszczenie zwierzęcia na mapie lub jego poruszenie", jeśli dobrze rozumiem polecenie
+                //to w przypadku "jedynie" zmiany orientacji mamy nie informować o tym observera
                 int animalIndex = animalIndices.get(animal);
                 mapChanged("Zwierze "+ animalIndex +": wykonalo ruch na pozycje: "+animal.getPosition() + ", z orientacja: " + animal);
             }

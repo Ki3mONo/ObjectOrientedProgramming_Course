@@ -3,6 +3,9 @@ package agh.ics.oop.model;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
+
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 import java.util.*;
 public class GrassFieldTest {
 
@@ -169,4 +172,58 @@ public class GrassFieldTest {
 
         assertEquals(expectedString, grassField.toString());
     }
+    @Test
+    void addObserverTest() {
+        AbstractWorldMap map = new GrassField(10);
+        ConsoleMapDisplay listener = new ConsoleMapDisplay();
+
+        map.addObserver(listener);
+        map.mapChanged("Test message");
+        map.mapChanged("Another message");
+
+        // Sprawdzamy, czy licznik aktualizacji został zwiększony o 2
+        assertEquals(2, listener.getUpdateCount(), "Licznik aktualizacji powinien wynosić 2 po dwóch wywołaniach.");
+    }
+
+    @Test
+    public void removeObserverTest(){
+        AbstractWorldMap map = new GrassField(10);
+        ConsoleMapDisplay listener = new ConsoleMapDisplay();
+
+        map.addObserver(listener);
+        map.mapChanged("Test message");
+        map.mapChanged("Another message");
+        assertEquals(1, map.getObserving().size());
+
+        map.removeObserver(listener);
+        assertEquals(0, map.getObserving().size());
+
+    }
+
+    @Test
+    void mapChangedPrintOutputTest() {
+        // Przygotowanie
+        ConsoleMapDisplay display = new ConsoleMapDisplay();
+        GrassField map = new GrassField(10);
+
+        // Przechwycenie strumienia wyjściowego
+        PrintStream originalOut = System.out;
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outputStream));
+
+        try {
+
+            display.mapChanged(map, "First update");
+            display.mapChanged(map, "Second update");
+
+            // Sprawdzenie poprawności wyjścia
+            String output = outputStream.toString();
+            assertTrue(output.contains("Update #1: First update"), "Wyjście powinno zawierać poprawną wiadomość dla pierwszej aktualizacji.");
+            assertTrue(output.contains("Update #2: Second update"), "Wyjście powinno zawierać poprawną wiadomość dla drugiej aktualizacji.");
+        } finally {
+            // Przywrócenie oryginalnego strumienia wyjściowego
+            System.setOut(originalOut);
+        }
+    }
+
 }

@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
 
 import static org.junit.jupiter.api.Assertions.*;
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 
 public class SimulationTest {
     @Test
@@ -155,6 +157,40 @@ public class SimulationTest {
         assertEquals(animals.get(2).getPosition(),new Vector2d(4,2));
         assertTrue(animals.get(2).isAt(new Vector2d(4,2)));
         assertFalse(animals.get(2).isAt(new Vector2d(2,0)));
+    }
+
+    @Test
+    public void exceptionTest(){
+        RectangularMap map = new RectangularMap(5, 5);
+        List<Vector2d> positions = List.of(new Vector2d(2, 2), new Vector2d(2, 2), new Vector2d(2,3)); // Dwie takie same pozycje
+        String[] arguments = {"f", "r", "l"};
+        List<MoveDirection> directions = OptionsParser.parse(arguments);
+
+        PrintStream originalErr = System.err;
+        ByteArrayOutputStream errorStream = new ByteArrayOutputStream();
+        System.setErr(new PrintStream(errorStream));
+
+        try {
+            Simulation simulation = new Simulation(positions, directions, map);
+            String errorOutput = errorStream.toString();
+            assertTrue(
+                    errorOutput.contains("Position (2,2) is not correct")
+            );
+            simulation.run();
+        } finally {
+            System.setErr(originalErr);
+        }
+    }
+    @Test
+    public void exceptionTestIllegalParser(){
+        String[] invalidArguments = {"x", "f", "l"};
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+            OptionsParser.parse(invalidArguments);
+        });
+
+        String expectedMessage = "x is not legal move specification";
+        String actualMessage = exception.getMessage();
+        assertEquals(expectedMessage, actualMessage);
     }
 
 }

@@ -29,6 +29,7 @@ public class Simulation {
             int animalIndex = i%animals.size();
             Animal animal = animals.get(animalIndex);
             try{
+                //to w map.move zostało zrealizowane aktualizowanie stanu mapy-tam dokładniejszy komentarz w metodzie move() klasy AbstractWorldMap
                 map.move(animal, directions.get(i));
             }catch (IncorrectPositionException e){
                 System.err.println(e.getMessage());

@@ -20,7 +20,7 @@ public class World {
         ConsoleMapDisplay consoleMapDisplay = new ConsoleMapDisplay();
         map.addObserver(consoleMapDisplay);
 
-        System.out.println("Initial grass map:");
+        System.out.println("Poczatkowy stan mapy:");
         System.out.println(map);
 
         Simulation simulation = new Simulation(positions, directions, map);
