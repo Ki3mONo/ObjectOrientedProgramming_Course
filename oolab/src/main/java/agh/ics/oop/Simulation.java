@@ -5,7 +5,7 @@ import agh.ics.oop.model.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Simulation {
+public class Simulation implements Runnable{
     private List<Animal> animals = new ArrayList<>();
     private List<MoveDirection> directions;
     private WorldMap map;
@@ -18,12 +18,15 @@ public class Simulation {
             try {
                 map.place(animal);
                 animals.add(animal);
-                map.mapChanged("Zwierze " + (animals.size() -1) +  ": zostalo dodane na pozycje: " + animal.getPosition()+ ", z orientacja: " +animal);
+                synchronized (this){
+                    map.mapChanged("Zwierze " + (animals.size() - 1) + ": zostalo dodane na pozycje: " + animal.getPosition() + ", z orientacja: " + animal);
+                }
             } catch (IncorrectPositionException e) {
                 System.err.println(e.getMessage());
             }
         }
     }
+    @Override
     public void run(){
         for (int i = 0; i<directions.size(); i++){
             int animalIndex = i%animals.size();

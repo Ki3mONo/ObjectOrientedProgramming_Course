@@ -6,6 +6,7 @@ import java.util.*;
 
 public abstract class AbstractWorldMap implements WorldMap{
 
+    protected UUID mapID;
     protected Vector2d leftBottomCorner=new Vector2d(Integer.MIN_VALUE,Integer.MIN_VALUE);
     protected Vector2d rightUpperCorner=new Vector2d(Integer.MAX_VALUE,Integer.MAX_VALUE);
     protected Map<Vector2d, Animal> animals = new HashMap<>();
@@ -67,7 +68,9 @@ public abstract class AbstractWorldMap implements WorldMap{
                 //mapy tylko, gdy "Umieszczenie zwierzęcia na mapie lub jego poruszenie", jeśli dobrze rozumiem polecenie
                 //to w przypadku "jedynie" zmiany orientacji mamy nie informować o tym observera
                 int animalIndex = animalIndices.get(animal);
-                mapChanged("Zwierze "+ animalIndex +": wykonalo ruch na pozycje: "+animal.getPosition() + ", z orientacja: " + animal);
+                synchronized (this){
+                    mapChanged("Zwierze "+ animalIndex +": wykonalo ruch na pozycje: "+animal.getPosition() + ", z orientacja: " + animal);
+                }
             }
         }
     }
@@ -89,5 +92,8 @@ public abstract class AbstractWorldMap implements WorldMap{
         return elements;
     }
 
-
+    @Override
+    public UUID getID() {
+        return mapID;
+    }
 }
