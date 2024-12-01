@@ -68,9 +68,7 @@ public abstract class AbstractWorldMap implements WorldMap{
                 //mapy tylko, gdy "Umieszczenie zwierzęcia na mapie lub jego poruszenie", jeśli dobrze rozumiem polecenie
                 //to w przypadku "jedynie" zmiany orientacji mamy nie informować o tym observera
                 int animalIndex = animalIndices.get(animal);
-                synchronized (this){
-                    mapChanged("Zwierze "+ animalIndex +": wykonalo ruch na pozycje: "+animal.getPosition() + ", z orientacja: " + animal);
-                }
+                mapChanged("Zwierze "+ animalIndex +": wykonalo ruch na pozycje: "+animal.getPosition() + ", z orientacja: " + animal);
             }
         }
     }

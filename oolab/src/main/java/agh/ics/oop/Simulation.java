@@ -18,9 +18,7 @@ public class Simulation implements Runnable{
             try {
                 map.place(animal);
                 animals.add(animal);
-                synchronized (this){
-                    map.mapChanged("Zwierze " + (animals.size() - 1) + ": zostalo dodane na pozycje: " + animal.getPosition() + ", z orientacja: " + animal);
-                }
+                map.mapChanged("Zwierze " + (animals.size() - 1) + ": zostalo dodane na pozycje: " + animal.getPosition() + ", z orientacja: " + animal);
             } catch (IncorrectPositionException e) {
                 System.err.println(e.getMessage());
             }
