@@ -6,7 +6,6 @@ import javafx.application.Application;
 import java.util.ArrayList;
 import java.util.List;
 public class World {
-
     public static void main(String[] args) {
 //        System.out.println("System rozpoczal dzialnie");
 //        List<MoveDirection> directions = new ArrayList<>();
@@ -34,7 +33,7 @@ public class World {
 //        }catch(InterruptedException e){
 //            System.out.println(e.getMessage());
 //        }
-//        System.out.println("System zakonczyl dzialanie.");
+        System.out.println("System zakonczyl dzialanie.");
 //
 //
 //
