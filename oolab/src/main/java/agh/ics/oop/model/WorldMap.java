@@ -17,13 +17,13 @@ public interface WorldMap extends MoveValidator {
      * @param animal The animal to place on the map.
      * @return True if the animal was placed. The animal cannot be placed if the move is not valid.
      */
-    boolean place(Animal animal);
+    void place(Animal animal) throws IncorrectPositionException;
 
     /**
      * Moves an animal (if it is present on the map) according to specified direction.
      * If the move is not possible, this method has no effect.
      */
-    void move(Animal animal, MoveDirection direction);
+    void move(Animal animal, MoveDirection direction) throws IncorrectPositionException;
 
     /**
      * Return true if given position on the map is occupied. Should not be
@@ -42,4 +42,8 @@ public interface WorldMap extends MoveValidator {
      * @return animal or null if the position is not occupied.
      */
     WorldElement objectAt(Vector2d position);
+
+    Boundary getCurrentBounds();
+
+    void mapChanged(String message);
 }

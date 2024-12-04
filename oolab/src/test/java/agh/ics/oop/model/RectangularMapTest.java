@@ -14,7 +14,11 @@ public class RectangularMapTest {
         RectangularMap map = new RectangularMap(5, 5);
         Animal animal1 = new Animal(new Vector2d(3, 2));
 
-        assertTrue(map.place(animal1));
+        try{
+            map.place(animal1);
+        }catch (IncorrectPositionException e){
+            System.err.println(e.getMessage());
+        }
         assertEquals(animal1,map.objectAt(new Vector2d(3,2)));
         assertTrue(map.isOccupied(new Vector2d(3,2)));
 
@@ -24,7 +28,11 @@ public class RectangularMapTest {
         RectangularMap map = new RectangularMap(5, 5);
         Animal animal1 = new Animal(new Vector2d(3, 2));
 
-        map.place(animal1);
+        try{
+            map.place(animal1);
+        }catch (IncorrectPositionException e){
+            System.err.println(e.getMessage());
+        }
         Map<Vector2d, Animal> animalsMap=map.getAnimals();
 
         assertTrue(animalsMap.containsValue(animal1));
@@ -35,9 +43,14 @@ public class RectangularMapTest {
         RectangularMap map = new RectangularMap(5, 5);
         Animal animal1 = new Animal(new Vector2d(5, 5));
 
-        assertFalse(map.place(animal1));
+        Exception exception = assertThrows(IncorrectPositionException.class, ()->{
+            map.place(animal1);
+        });
 
-        assertFalse(map.isOccupied(new Vector2d(5,5)));
+        String expectedMessage = "Position " + animal1.getPosition() + " is not correct";
+        String actualMessage = exception.getMessage();
+
+        assertEquals(expectedMessage,actualMessage);
 
     }
     @Test
@@ -46,26 +59,47 @@ public class RectangularMapTest {
         Animal animal1 = new Animal(new Vector2d(2, 2));
         Animal animal2 = new Animal(new Vector2d(2, 2));
 
-        assertTrue(map.place(animal1));
+        try{
+            map.place(animal1);
+        }catch (IncorrectPositionException e){
+            System.err.println(e.getMessage());
+        }
 
         assertTrue(map.isOccupied(new Vector2d(2,2)));
-        assertFalse(map.place(animal2));
+        Exception exception = assertThrows(IncorrectPositionException.class, ()->{
+            map.place(animal2);
+        });
+
+        String expectedMessage = "Position " + animal1.getPosition() + " is not correct";
+        String actualMessage = exception.getMessage();
+
+        assertEquals(expectedMessage,actualMessage);
     }
 
     @Test
     public void testAnimalMovementWithinBounds() {
         RectangularMap map = new RectangularMap(5, 5);
         Animal animal = new Animal(new Vector2d(2, 2));
-        map.place(animal);
+        try{
+            map.place(animal);
+        }catch (IncorrectPositionException e){
+            System.err.println(e.getMessage());
+        }
 
-        // Ruchy w obrębie granic
-        map.move(animal, MoveDirection.FORWARD);
+        try{
+            map.move(animal, MoveDirection.FORWARD);
+        }catch (IncorrectPositionException e){
+            System.err.println(e.getMessage());
+        }
         assertEquals(new Vector2d(2, 3), animal.getPosition());
         assertTrue(animal.isAt(new Vector2d(2,3)));
         assertTrue(map.isOccupied(new Vector2d(2,3)));
-
-        map.move(animal, MoveDirection.RIGHT);
-        map.move(animal, MoveDirection.FORWARD);
+        try{
+            map.move(animal, MoveDirection.RIGHT);
+            map.move(animal, MoveDirection.FORWARD);
+        }catch (IncorrectPositionException e){
+            System.err.println(e.getMessage());
+        }
         assertTrue(animal.isAt(new Vector2d(3,3)));
         assertTrue(map.isOccupied(new Vector2d(3,3)));
         assertFalse(map.isOccupied(new Vector2d(2,3)));
@@ -75,15 +109,28 @@ public class RectangularMapTest {
     public void testAnimalMovementOutOfBounds() {
         RectangularMap map = new RectangularMap(5, 5);
         Animal animal = new Animal(new Vector2d(0, 0));
-        map.place(animal);
+        try{
+            map.place(animal);
+        }catch (IncorrectPositionException e){
+            System.err.println(e.getMessage());
+        }
 
-        map.move(animal, MoveDirection.BACKWARD);
+
+        try{
+            map.move(animal, MoveDirection.BACKWARD);
+        }catch (IncorrectPositionException e){
+            System.err.println(e.getMessage());
+        }
         assertTrue(animal.isAt(new Vector2d(0,0)));
         assertTrue(map.isOccupied(new Vector2d(0, 0)));
 
+        try{
+            map.move(animal, MoveDirection.LEFT);
+            map.move(animal, MoveDirection.FORWARD);
+        }catch (IncorrectPositionException e){
+            System.err.println(e.getMessage());
+        }
 
-        map.move(animal, MoveDirection.LEFT);
-        map.move(animal, MoveDirection.FORWARD);
         assertTrue(animal.isAt(new Vector2d(0,0)));
         assertTrue(map.isOccupied(new Vector2d(0, 0)));
     }
@@ -91,11 +138,24 @@ public class RectangularMapTest {
     public void testAnimalMovementAtOccupiedPosition() {
         RectangularMap map = new RectangularMap(5, 5);
         Animal animal1 = new Animal(new Vector2d(2,2));
-        map.place(animal1);
-        Animal animal2 = new Animal(new Vector2d(2,1));
-        map.place(animal2);
+        try{
+            map.place(animal1);
+        }catch (IncorrectPositionException e){
+            System.err.println(e.getMessage());
+        }
 
-        map.move(animal2, MoveDirection.FORWARD);
+        Animal animal2 = new Animal(new Vector2d(2,1));
+        try{
+            map.place(animal2);
+        }catch (IncorrectPositionException e){
+            System.err.println(e.getMessage());
+        }
+        try{
+            map.move(animal2, MoveDirection.FORWARD);
+        }catch (IncorrectPositionException e){
+            System.err.println(e.getMessage());
+        }
+
         assertTrue(animal1.isAt(new Vector2d(2,2)));
         assertTrue(map.isOccupied(new Vector2d(2, 2)));
         assertTrue(animal2.isAt(new Vector2d(2,1)));
@@ -107,15 +167,29 @@ public class RectangularMapTest {
     public void testToString(){
         RectangularMap map = new RectangularMap(5, 5);
         Animal animal = new Animal(new Vector2d(0, 0));
-        map.place(animal);
+        try{
+            map.place(animal);
+        }catch (IncorrectPositionException e){
+            System.err.println(e.getMessage());
+        }
 
-        map.move(animal, MoveDirection.BACKWARD);
+        try{
+            map.move(animal, MoveDirection.BACKWARD);
+        }catch (IncorrectPositionException e){
+            System.err.println(e.getMessage());
+        }
+
         assertTrue(animal.isAt(new Vector2d(0,0)));
         assertTrue(map.isOccupied(new Vector2d(0, 0)));
 
+        try{
+            map.move(animal, MoveDirection.LEFT);
+            map.move(animal, MoveDirection.FORWARD);
+        }catch (IncorrectPositionException e){
+            System.err.println(e.getMessage());
+        }
 
-        map.move(animal, MoveDirection.LEFT);
-        map.move(animal, MoveDirection.FORWARD);
+
         assertTrue(animal.isAt(new Vector2d(0,0)));
         assertTrue(map.isOccupied(new Vector2d(0, 0)));
 

@@ -1,5 +1,6 @@
 package agh.ics.oop;
 
+import agh.ics.oop.model.IncorrectPositionException;
 import agh.ics.oop.model.MoveDirection;
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
@@ -36,11 +37,15 @@ public class OptionsParserTest {
                 MoveDirection.RIGHT
         );
 
-        //when
-        List<MoveDirection> result = OptionsParser.parse(input);
 
-        //then
-        assertEquals(expectedOutput, result);
+        Exception exception = assertThrows(IllegalArgumentException.class, ()->{
+            List<MoveDirection> result = OptionsParser.parse(input);
+        });
+
+        String expectedMessage = "i is not legal move specification";
+        String actualMessage = exception.getMessage();
+
+        assertEquals(expectedMessage,actualMessage);
     }
 
     @Test
@@ -49,11 +54,15 @@ public class OptionsParserTest {
         String[] input = {"i", "m", "k"};
         List<MoveDirection> expectedOutput = List.of();
 
-        //when
-        List<MoveDirection> result = OptionsParser.parse(input);
+        Exception exception = assertThrows(IllegalArgumentException.class, ()->{
+            List<MoveDirection> result = OptionsParser.parse(input);
+        });
 
-        //then
-        assertEquals(expectedOutput, result);
+        String expectedMessage = "i is not legal move specification";
+        String actualMessage = exception.getMessage();
+
+        assertEquals(expectedMessage,actualMessage);
+
     }
 
     @Test
@@ -63,9 +72,13 @@ public class OptionsParserTest {
         List<MoveDirection> expectedOutput = List.of();
 
         //when
-        List<MoveDirection> result = OptionsParser.parse(input);
+        Exception exception = assertThrows(IllegalArgumentException.class, ()->{
+            List<MoveDirection> result = OptionsParser.parse(input);
+        });
 
-        //then
-        assertEquals(expectedOutput, result);
+        String expectedMessage = "No moves specified";
+        String actualMessage = exception.getMessage();
+
+        assertEquals(expectedMessage,actualMessage);
     }
 }

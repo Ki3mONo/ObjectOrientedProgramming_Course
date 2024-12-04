@@ -1,9 +1,6 @@
 package agh.ics.oop;
 
-import agh.ics.oop.model.Animal;
-import agh.ics.oop.model.MoveDirection;
-import agh.ics.oop.model.Vector2d;
-import agh.ics.oop.model.WorldMap;
+import agh.ics.oop.model.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,10 +13,14 @@ public class Simulation {
     public Simulation(List<Vector2d> positions,List<MoveDirection> directions, WorldMap map){
         this.directions=directions;
         this.map = map;
-        for (int i = 0; i<positions.size(); i++){
-            Animal animal = new Animal(positions.get(i));
-            if (map.place(animal)){
+        for (Vector2d position : positions) {
+            Animal animal = new Animal(position);
+            try {
+                map.place(animal);
                 animals.add(animal);
+                map.mapChanged("Zwierze " + (animals.size() -1) +  ": zostalo dodane na pozycje: " + animal.getPosition()+ ", z orientacja: " +animal);
+            } catch (IncorrectPositionException e) {
+                System.err.println(e.getMessage());
             }
         }
     }
@@ -27,11 +28,12 @@ public class Simulation {
         for (int i = 0; i<directions.size(); i++){
             int animalIndex = i%animals.size();
             Animal animal = animals.get(animalIndex);
-            map.move(animal,directions.get(i));
-            //nie jestem pewny czy ten pierwszy sout jest potrzebny, ale zostawię go bo nigdzie nie kazali go usuwać
-            System.out.println("Zwierzak " + animalIndex + " : " + animal.getPosition() + ", " + animal);
-            //tutaj wypisanie stanu mapy z zadania 6.
-            System.out.println(map);
+            try{
+                //to w map.move zostało zrealizowane aktualizowanie stanu mapy-tam dokładniejszy komentarz w metodzie move() klasy AbstractWorldMap
+                map.move(animal, directions.get(i));
+            }catch (IncorrectPositionException e){
+                System.err.println(e.getMessage());
+            }
         }
     }
     public List<Animal> getAnimals(){
