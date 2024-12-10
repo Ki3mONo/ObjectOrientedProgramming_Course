@@ -12,6 +12,7 @@ public class RectangularMap extends AbstractWorldMap {
         if (width>=0 && height>=0){
             this.width = width;
             this.height = height;
+            this.mapID = UUID.randomUUID();
             //mapa 7x7 to mapa [0,6]x[0,6]
             this.leftBottomCorner=new Vector2d(0,0);
             this.rightUpperCorner = new Vector2d(width-1,height-1);
@@ -19,7 +20,7 @@ public class RectangularMap extends AbstractWorldMap {
     }
 
     @Override
-    public Boundary getCurrentBounds(){
+    public Boundary getCurrentBounds() {
         return new Boundary(leftBottomCorner,rightUpperCorner);
     }
 }

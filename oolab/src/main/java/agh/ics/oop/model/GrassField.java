@@ -25,7 +25,7 @@ public class GrassField extends AbstractWorldMap{
     //tylko do testu toString zostały zrobione dwa konstruktory
     public GrassField(int grassCount, Random random){
         int size = (int)Math.sqrt(grassCount*10);
-
+        this.mapID = UUID.randomUUID();
         while (grassMap.size() < size) {
             int x = random.nextInt(size+1);  // współrzędna x w zakresie od 0 do size
             int y = random.nextInt(size+1);  // współrzędna y w zakresie od 0 do size

@@ -6,6 +6,7 @@ import java.util.*;
 
 public abstract class AbstractWorldMap implements WorldMap{
 
+    protected UUID mapID;
     protected Vector2d leftBottomCorner=new Vector2d(Integer.MIN_VALUE,Integer.MIN_VALUE);
     protected Vector2d rightUpperCorner=new Vector2d(Integer.MAX_VALUE,Integer.MAX_VALUE);
     protected Map<Vector2d, Animal> animals = new HashMap<>();
@@ -89,5 +90,8 @@ public abstract class AbstractWorldMap implements WorldMap{
         return elements;
     }
 
-
+    @Override
+    public UUID getID() {
+        return mapID;
+    }
 }
