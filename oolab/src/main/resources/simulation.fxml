@@ -7,14 +7,25 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.RowConstraints?>
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="agh.ics.oop.presenter.SimulationPresenter"
-            minHeight="550.0" minWidth="850.0">
+            minHeight="700.0" minWidth="950.0">
 
     <center>
         <VBox spacing="10" alignment="CENTER">
             <Label fx:id="infoLabel" text="All animals will be living here!" textAlignment="CENTER"/>
+            <GridPane fx:id="mapGrid" alignment="CENTER" gridLinesVisible="true" style="-fx-padding: 10;" visible="false">
+                <columnConstraints>
+                    <ColumnConstraints percentWidth="10"/>
+                </columnConstraints>
+                <rowConstraints>
+                    <RowConstraints percentHeight="10"/>
+                </rowConstraints>
+            </GridPane>
             <Label fx:id="moveDescriptionLabel" text="Move description will appear here." textAlignment="CENTER"/>
         </VBox>
     </center>
@@ -22,7 +33,6 @@
     <bottom>
         <HBox spacing="10" alignment="CENTER" style="-fx-padding: 10;">
             <TextField fx:id="moveInputField" promptText="Enter moves here"/>
-            <!-- onAction linked to onSimulationStartClicked method -->
             <Button fx:id="startButton" text="Start" onAction="#onSimulationStartClicked"/>
         </HBox>
     </bottom>

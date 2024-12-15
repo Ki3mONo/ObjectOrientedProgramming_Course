@@ -1,16 +1,14 @@
 package agh.ics.oop;
 
-import agh.ics.oop.model.*;
 import agh.ics.oop.presenter.SimulationPresenter;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
-import javax.swing.*;
 import java.io.IOException;
-import java.util.List;
 
 public class SimulationApp extends Application {
     public void start(Stage primaryStage) throws IOException {
@@ -21,9 +19,10 @@ public class SimulationApp extends Application {
         configureStage(primaryStage,viewRoot);
         primaryStage.show();
 
-
-//        SimulationEngine engine = new SimulationEngine(List.of(grassFieldSimulation));
-//        engine.runSync();
+        primaryStage.setOnCloseRequest(event -> {
+            Platform.exit();
+            System.exit(0);
+        });
     }
     private void configureStage(Stage primaryStage, BorderPane viewRoot) {
         var scene = new Scene(viewRoot);

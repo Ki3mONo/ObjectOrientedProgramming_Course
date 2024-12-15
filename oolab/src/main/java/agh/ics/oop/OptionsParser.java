@@ -20,7 +20,6 @@ public class OptionsParser {
                 default -> throw new IllegalArgumentException(arg + " is not legal move specification");
             };
             moves.add(move);
-
         }
         return moves;
     }

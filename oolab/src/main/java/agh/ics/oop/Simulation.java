@@ -18,8 +18,9 @@ public class Simulation implements Runnable{
             try {
                 map.place(animal);
                 animals.add(animal);
+                Thread.sleep(500);
                 map.mapChanged("Zwierze " + (animals.size() - 1) + ": zostalo dodane na pozycje: " + animal.getPosition() + ", z orientacja: " + animal);
-            } catch (IncorrectPositionException e) {
+            } catch (IncorrectPositionException | InterruptedException e) {
                 System.err.println(e.getMessage());
             }
         }
@@ -31,8 +32,9 @@ public class Simulation implements Runnable{
             Animal animal = animals.get(animalIndex);
             try{
                 //to w map.move zostało zrealizowane aktualizowanie stanu mapy-tam dokładniejszy komentarz w metodzie move() klasy AbstractWorldMap
+                Thread.sleep(500);
                 map.move(animal, directions.get(i));
-            }catch (IncorrectPositionException e){
+            }catch (IncorrectPositionException | InterruptedException e){
                 System.err.println(e.getMessage());
             }
         }
