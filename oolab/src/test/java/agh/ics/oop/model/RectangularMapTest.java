@@ -3,6 +3,7 @@ package agh.ics.oop.model;
 import org.junit.jupiter.api.Test;
 import agh.ics.oop.model.util.*;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -199,6 +200,30 @@ public class RectangularMapTest {
                 " y\\x  0 1 2 3 4\r\n  5: -----------\r\n  4: | | | | | |\r\n  3: | | | | | |\r\n  2: | | | | | |\r\n  1: | | | | | |\r\n  0: |W| | | | |\r\n -1: -----------\r\n";
 
         assertEquals(toStringExpected,map.toString());
+    }
+
+    @Test
+    public void testGetOrderedAnimals() {
+        Animal animal1 = new Animal(new Vector2d(2, 3));
+        Animal animal2 = new Animal(new Vector2d(1, 1));
+        Animal animal3 = new Animal(new Vector2d(2, 2));
+        Animal animal4 = new Animal(new Vector2d(1, 3));
+        WorldMap map = new RectangularMap(10,10);
+        try {
+            map.place(animal1);
+            map.place(animal2);
+            map.place(animal3);
+            map.place(animal4);
+        } catch (IncorrectPositionException e) {
+            System.err.println(e.getMessage());
+        }
+
+        List<Animal> orderedAnimals = map.getOrderedAnimals();
+
+        assertEquals(animal2, orderedAnimals.get(0));
+        assertEquals(animal4, orderedAnimals.get(1));
+        assertEquals(animal3, orderedAnimals.get(2));
+        assertEquals(animal1, orderedAnimals.get(3));
     }
 
 }

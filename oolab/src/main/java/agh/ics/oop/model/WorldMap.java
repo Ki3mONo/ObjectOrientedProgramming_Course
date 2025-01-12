@@ -51,5 +51,5 @@ public interface WorldMap extends MoveValidator {
 
     UUID getID();
 
-    Collection<Animal> getOrderedAnimals();
+    List<Animal> getOrderedAnimals();
 }

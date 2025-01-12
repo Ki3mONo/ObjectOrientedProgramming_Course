@@ -96,7 +96,7 @@ public abstract class AbstractWorldMap implements WorldMap{
         return mapID;
     }
 
-    public Collection<Animal> getOrderedAnimals(){
+    public List<Animal> getOrderedAnimals(){
         return animals.values().stream().sorted(Comparator.comparing(Animal::getXpos).thenComparing(Animal::getYpos)).collect(Collectors.toList());
     }
 }
