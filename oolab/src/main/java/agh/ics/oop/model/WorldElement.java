@@ -4,4 +4,6 @@ public interface WorldElement {
     public Vector2d getPosition();
 
     public String toString();
+
+    public String getResourceName();
 }
