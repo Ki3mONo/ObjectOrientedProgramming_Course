@@ -5,6 +5,14 @@ public class Animal implements WorldElement{
     private MapDirection orientation=INITIAL_MAP_DIRECTION;
     private Vector2d position;
 
+    public int getXpos(){
+        return this.position.getX();
+    }
+
+    public int getYpos(){
+        return this.position.getY();
+    }
+
     //na potrzeby testów integracyjnych
     public MapDirection getOrientation() {
         return orientation;

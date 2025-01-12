@@ -12,6 +12,9 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 public class SimulationPresenter implements MapChangeListener {
@@ -64,7 +67,7 @@ public class SimulationPresenter implements MapChangeListener {
         for (int y = 0; y < height; y++) {
             for (int x = 0; x < width; x++) {
                 Vector2d position = new Vector2d(lowerLeft.getX() + x, upperRight.getY() - y);
-                String content = map.objectAt(position) != null ? map.objectAt(position).toString() : "";
+                String content = map.objectAt(position).isPresent() ? map.objectAt(position).get().toString() : "";
 
                 Label cellLabel = new Label(content);
                 cellLabel.setMinSize(50, 50);
@@ -97,6 +100,11 @@ public class SimulationPresenter implements MapChangeListener {
         ConsoleMapDisplay consoleMapDisplay = new ConsoleMapDisplay();
         map.addObserver(consoleMapDisplay);
         map.addObserver(this);
+        map.addObserver((worldMap, message) -> {
+            String timestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+            String formattedMessage = timestamp + " " + worldMap.getID().toString() + " " + message;
+            Platform.runLater(() -> moveDescriptionLabel.setText(formattedMessage));
+        });
 
         String inputText = moveInputField.getText();
         if (inputText != null && !inputText.trim().isEmpty()) {

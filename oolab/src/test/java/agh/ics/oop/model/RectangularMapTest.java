@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 import agh.ics.oop.model.util.*;
 
 import java.util.Map;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -19,7 +20,8 @@ public class RectangularMapTest {
         }catch (IncorrectPositionException e){
             System.err.println(e.getMessage());
         }
-        assertEquals(animal1,map.objectAt(new Vector2d(3,2)));
+        Optional<WorldElement> animal1element = map.objectAt(new Vector2d(3,2));
+        animal1element.ifPresent(e -> assertEquals(animal1, e));
         assertTrue(map.isOccupied(new Vector2d(3,2)));
 
     }
