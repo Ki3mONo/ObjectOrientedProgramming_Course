@@ -1,8 +1,11 @@
 package agh.ics.oop.model;
 
+import agh.ics.oop.OptionsParser;
 import agh.ics.oop.model.util.MapVisualizer;
 
 import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class GrassField extends AbstractWorldMap{
 
@@ -42,20 +45,20 @@ public class GrassField extends AbstractWorldMap{
     }
     @Override
     public Collection<WorldElement> getElements(){
-        Collection<WorldElement> elements = super.getElements();
-        elements.addAll(this.getGrassMap().values());
-        return elements;
+            return Stream
+                    .concat(animals.values().stream(), grassMap.values().stream())
+                    .collect(Collectors.toList());
     }
 
     @Override
-    public WorldElement objectAt(Vector2d position) {
-        Animal animal = (Animal) super.objectAt(position);
-        //animal ma "pierwszeństwo"
-        if(animal!=null){
+    public Optional<WorldElement> objectAt(Vector2d position) {
+        Optional<WorldElement> animal = super.objectAt(position);
+        // animal ma "pierwszeństwo"
+        if (animal.isPresent()) {
             return animal;
         }
-        //albo zwrócimy grass, albo nulla jak nie ma tam grass więc nie potrzebujemy dodatkowej logiki
-        return grassMap.get(position);
+        // Jeżeli nie ma zwierzęcia, sprawdzamy, czy jest trawa
+        return Optional.ofNullable(grassMap.get(position));
     }
 
     @Override

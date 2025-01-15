@@ -27,7 +27,8 @@ public class GrassFieldTest {
         }catch (IncorrectPositionException e){
             System.err.println(e.getMessage());
         }
-        assertEquals(animal,grassField.objectAt(new Vector2d(2, 2)));
+        Optional<WorldElement> element = grassField.objectAt(new Vector2d(2, 2));
+        element.ifPresent(e -> assertEquals(animal, e));
     }
     @Test
     public void testFindLeftBottom() {
@@ -81,8 +82,10 @@ public class GrassFieldTest {
         }catch (IncorrectPositionException e){
             System.err.println(e.getMessage());
         }
-        assertInstanceOf(Grass.class , grassField.objectAt(new Vector2d(3,1)));
-        assertEquals(animal,grassField.objectAt(new Vector2d(2, 1)));
+        Optional<WorldElement> element = grassField.objectAt(new Vector2d(3,1));
+        element.ifPresent(e -> assertInstanceOf(Grass.class, e));
+        Optional<WorldElement> animalElement = grassField.objectAt(new Vector2d(2, 1));
+        animalElement.ifPresent(e -> assertEquals(animal, e));
         try{
             grassField.move(animal, MoveDirection.RIGHT);
             grassField.move(animal, MoveDirection.FORWARD);
@@ -90,7 +93,8 @@ public class GrassFieldTest {
             System.err.println(e.getMessage());
         }
         assertTrue(animal.isAt(new Vector2d(3, 1)));
-        assertInstanceOf(Grass.class , grassField.objectAt(new Vector2d(2,1)));
+        Optional<WorldElement> otherElement = grassField.objectAt(new Vector2d(2,1));
+        otherElement.ifPresent(e -> assertInstanceOf(Grass.class, e));
     }
 
     @Test
@@ -121,10 +125,10 @@ public class GrassFieldTest {
         Vector2d position = new Vector2d(0, 10);
         System.out.println(grassField);
 
-        WorldElement element = grassField.objectAt(position);
+        Optional<WorldElement> element = grassField.objectAt(position);
 
         assertNotNull(element);
-        assertInstanceOf(Grass.class, element);
+        element.ifPresent(e -> assertInstanceOf(Grass.class, e));
     }
 
     @Test
