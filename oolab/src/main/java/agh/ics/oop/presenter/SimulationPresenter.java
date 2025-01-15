@@ -4,6 +4,7 @@ import agh.ics.oop.*;
 import agh.ics.oop.model.*;
 import agh.ics.oop.model.MapChangeListener;
 import agh.ics.oop.model.WorldMap;
+import agh.ics.oop.model.util.FileMapDisplay;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -66,17 +67,17 @@ public class SimulationPresenter implements MapChangeListener {
 
         for (int y = 0; y < height; y++) {
             for (int x = 0; x < width; x++) {
+                int inX = x;
+                int inY = y;
                 Vector2d position = new Vector2d(lowerLeft.getX() + x, upperRight.getY() - y);
-                String content = map.objectAt(position).isPresent() ? map.objectAt(position).get().toString() : "";
-
-                Label cellLabel = new Label(content);
-                cellLabel.setMinSize(50, 50);
-                cellLabel.setStyle("-fx-border-color: black; -fx-alignment: center;");
-                GridPane.setHalignment(cellLabel, HPos.CENTER);
-
-                mapGrid.add(cellLabel, x + 1, y + 1);
+                map.objectAt(position).ifPresent(element -> {
+                    WorldElementBox elementBox = new WorldElementBox(element);
+                    GridPane.setHalignment(elementBox, HPos.CENTER);
+                    mapGrid.add(elementBox, inX+1, inY+1);
+                });
             }
         }
+
     }
 
     @Override
@@ -98,8 +99,10 @@ public class SimulationPresenter implements MapChangeListener {
         this.setWorldMap(map);
 
         ConsoleMapDisplay consoleMapDisplay = new ConsoleMapDisplay();
+        FileMapDisplay fileMapDisplay = new FileMapDisplay();
         map.addObserver(consoleMapDisplay);
         map.addObserver(this);
+        map.addObserver(fileMapDisplay);
         map.addObserver((worldMap, message) -> {
             String timestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
             String formattedMessage = timestamp + " " + worldMap.getID().toString() + " " + message;

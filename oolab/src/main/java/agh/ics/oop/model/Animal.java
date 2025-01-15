@@ -59,6 +59,18 @@ public class Animal implements WorldElement{
         }
     }
 
+    @Override
+    public String getResourceName() {
+        return switch (this.orientation) {
+            case NORTH -> "up.png";
+            case SOUTH -> "down.png";
+            case EAST -> "right.png";
+            case WEST -> "left.png";
+        };
+    }
+
+
+
 //    private void setTempPositionAsCurrent(Vector2d tempPosition) {
 //        if(checkValidPosition(tempPosition)){
 //            this.position = tempPosition;
